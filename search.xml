@@ -83,34 +83,6 @@
       </tags>
   </entry>
   <entry>
-    <title>代码随想录字符串01</title>
-    <url>/2024/07/24/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E5%AD%97%E7%AC%A6%E4%B8%B201/</url>
-    <content><![CDATA[<h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><p>本题主要考察字符串的操作，双指针反转就可</p>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(right &gt; left)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> s[left];</span><br><span class="line">            s[left] = s[right];</span><br><span class="line">            s[right] = temp;</span><br><span class="line">            right--;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="反转字符串2："><a href="#反转字符串2：" class="headerlink" title="反转字符串2："></a>反转字符串2：</h3><p>本题反转与上一题一样，但是需要注意什么时候反转。首先一个for循环，然后通过start和end指针确定反转的界限，最后的反转部分通过min函数比较结尾与end即可。</p>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseStr</span><span class="params">(String s, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">char</span>[] schar = s.toCharArray();</span><br><span class="line">        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> s.length()-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; length;i+=<span class="number">2</span>*k)&#123;</span><br><span class="line">            start = i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> Math.min(length, start + k -<span class="number">1</span>);</span><br><span class="line">            reverse(schar, start, end);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(schar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverse</span><span class="params">(<span class="type">char</span>[] schar,<span class="type">int</span> left,<span class="type">int</span> right)</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(right &gt; left)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> schar[left];</span><br><span class="line">            schar[left] = schar[right];</span><br><span class="line">            schar[right] = temp;</span><br><span class="line">            right--;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="替换数字"><a href="#替换数字" class="headerlink" title="替换数字"></a>替换数字</h3><p>因为Java中字符串是没有办法修改长度的，所以使用StringBiulder，然后遍历字符串，遇到数字字符就在新的字符串中加入number即可，否则就写入字符。</p>
-<p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span> <span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(Character.isDigit(s.charAt(i)))&#123;</span><br><span class="line">                sb.append(<span class="string">&quot;number&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                sb.append(s.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(sb);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="今日八股"><a href="#今日八股" class="headerlink" title="今日八股"></a>今日八股</h3><ol>
-<li>mysql的执行引擎有哪些</li>
-<li>说一下索引失效的场景</li>
-<li>mysql为什么使用B+树做索引</li>
-</ol>
-]]></content>
-      <categories>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>代码随想录</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>代码随想录Day7-23</title>
     <url>/2024/07/23/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95Day7-23/</url>
     <content><![CDATA[<h3 id="四数相加"><a href="#四数相加" class="headerlink" title="四数相加"></a>四数相加</h3><p>使用2次，2层for循环。即可确定和值，然后使用一个map来记录第一个for循环的值，再第二次for循环中找，并记录次数即可。</p>
@@ -139,6 +111,34 @@
 <li>一条查询SQL的语句是如何执行的？</li>
 <li>事物的四大特性有哪些？</li>
 <li>数据库的事物隔离级别有哪些？</li>
+</ol>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>代码随想录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>代码随想录字符串01</title>
+    <url>/2024/07/24/%E4%BB%A3%E7%A0%81%E9%9A%8F%E6%83%B3%E5%BD%95%E5%AD%97%E7%AC%A6%E4%B8%B201/</url>
+    <content><![CDATA[<h3 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h3><p>本题主要考察字符串的操作，双指针反转就可</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverseString</span><span class="params">(<span class="type">char</span>[] s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">left</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">right</span> <span class="operator">=</span> s.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(right &gt; left)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> s[left];</span><br><span class="line">            s[left] = s[right];</span><br><span class="line">            s[right] = temp;</span><br><span class="line">            right--;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="反转字符串2："><a href="#反转字符串2：" class="headerlink" title="反转字符串2："></a>反转字符串2：</h3><p>本题反转与上一题一样，但是需要注意什么时候反转。首先一个for循环，然后通过start和end指针确定反转的界限，最后的反转部分通过min函数比较结尾与end即可。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">reverseStr</span><span class="params">(String s, <span class="type">int</span> k)</span> &#123;</span><br><span class="line">        <span class="type">char</span>[] schar = s.toCharArray();</span><br><span class="line">        <span class="type">int</span> <span class="variable">length</span> <span class="operator">=</span> s.length()-<span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">start</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; length;i+=<span class="number">2</span>*k)&#123;</span><br><span class="line">            start = i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">end</span> <span class="operator">=</span> Math.min(length, start + k -<span class="number">1</span>);</span><br><span class="line">            reverse(schar, start, end);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">String</span>(schar);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">reverse</span><span class="params">(<span class="type">char</span>[] schar,<span class="type">int</span> left,<span class="type">int</span> right)</span>&#123;</span><br><span class="line">        <span class="keyword">while</span>(right &gt; left)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">temp</span> <span class="operator">=</span> schar[left];</span><br><span class="line">            schar[left] = schar[right];</span><br><span class="line">            schar[right] = temp;</span><br><span class="line">            right--;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="替换数字"><a href="#替换数字" class="headerlink" title="替换数字"></a>替换数字</h3><p>因为Java中字符串是没有办法修改长度的，所以使用StringBiulder，然后遍历字符串，遇到数字字符就在新的字符串中加入number即可，否则就写入字符。</p>
+<p>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span> <span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">scanner</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> scanner.nextLine();</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; s.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(Character.isDigit(s.charAt(i)))&#123;</span><br><span class="line">                sb.append(<span class="string">&quot;number&quot;</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                sb.append(s.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(sb);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="今日八股"><a href="#今日八股" class="headerlink" title="今日八股"></a>今日八股</h3><ol>
+<li>mysql的执行引擎有哪些</li>
+<li>说一下索引失效的场景</li>
+<li>mysql为什么使用B+树做索引</li>
 </ol>
 ]]></content>
       <categories>
@@ -228,20 +228,5 @@
         <tag>学习</tag>
         <tag>博客搭建</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>archives</title>
-    <url>/archives/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>categories</title>
-    <url>/categories/index.html</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>tags</title>
-    <url>/tags/index.html</url>
-    <content><![CDATA[]]></content>
   </entry>
 </search>
